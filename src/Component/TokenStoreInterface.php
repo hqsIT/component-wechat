@@ -4,7 +4,7 @@ namespace Xjchengo\Component;
 
 interface TokenStoreInterface
 {
-    public function __construct($componentAppId);
+//    public function __construct($componentAppId);
 
     public function getToken($authorizerAppId);
 

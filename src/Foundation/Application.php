@@ -15,22 +15,24 @@ use Xjchengo\Component\AccessToken as ComponentAccessToken;
 use Xjchengo\Component\Auth as ComponentAuth;
 use Xjchengo\Component\Authorizer;
 use EasyWeChat\Foundation\ServiceProviders\OAuthServiceProvider as NormalOAuthServiceProvider;
+use EasyWeChat\Foundation\ServiceProviders\ServerServiceProvider as NormalServerServiceProvider;
 
 class Application extends BaseApplication
 {
     public function __construct($config)
     {
-
-        $this->replaceOAuthServiceProvider();
+        $this->replaceServiceProviders();
         parent::__construct($config);
         $this->registerAccessToken();
     }
 
-    protected function replaceOAuthServiceProvider()
+    protected function replaceServiceProviders()
     {
         foreach($this->providers as $key => $provider) {
             if ($provider == NormalOAuthServiceProvider::class) {
                 $this->providers[$key] = ServiceProviders\OAuthServiceProvider::class;
+            } elseif ($provider == NormalServerServiceProvider::class) {
+                $this->providers[$key] = ServiceProviders\ServerServiceProvider::class;
             }
         }
     }
